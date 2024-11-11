@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+
+    <script type="text/babel">
+        /*JavaScript 中所有的对象都有一个内置属性，称为它的 prototype（原型）。
+        它本身是一个对象，故原型对象也会有它自己的原型，逐渐构成了原型链。
+        原型链终止于拥有 null 作为其原型的对象上。 
+        访问对象原型的标准方法是 Object.getPrototypeOf()。*/
+
+        // 原型遮蔽
+        const myDate = new Date(1995, 11, 17);
+
+        console.log(myDate.getYear()); // 95
+
+        myDate.getYear = function () {
+            console.log("别的东西! ");
+        };
+
+        myDate.getYear(); // 别的东西! 
+
+        //设置原型
+        // 1. 使用Object.create()
+        // 创建一个新的对象，并允许你指定一个将被用作新对象原型的对象。
+        const personPrototype = {
+            greet() {
+                console.log("Hi !");
+            },
+        };
+        const carl = Object.create(personPrototype);
+        carl.greet(); // Hi !
+
+        // 2. 构造函数
+        const personPrototype1 = {
+            greet() {
+                console.log(`hi, my name is ${this.name}`);
+            },
+        };
+        function Person(name) {
+            this.name = name;
+        }
+        Object.assign(Person.prototype, personPrototype1);
+        // Person.prototype.greet = personPrototype.greet;
+        const reuben = new Person("Reuben");
+        reuben.greet(); // hi, my name is Reuben
+
+        // 自有属性
+        /*直接在对象中定义的属性，如这里的name，被称为自有属性
+        可以使用静态方法 Object.hasOwn() 检查一个属性是否是自有属性： */
+
+
+
+    </script>
+
+</body>
+
+</html>

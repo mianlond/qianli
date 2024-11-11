@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <button>Start machine</button>
+    <p>The machine is stopped.</p>
+    
+
+    <script type="text/babel">
+
+const btn = document.querySelector("button");
+const txt = document.querySelector("p");
+
+btn.addEventListener("click", updateBtn);
+
+function updateBtn() {
+  if (btn.textContent === "Start machine") {
+    btn.textContent = "Stop machine";
+    txt.textContent = "The machine has started!";
+  } else {
+    btn.textContent = "Start machine";
+    txt.textContent = "The machine is stopped.";
+  }
+}
+const name = "tom";
+const greeting = `hello, ${name}`;
+consle.log(greeting);
+
+    </script>
+
+</body>
+
+</html>

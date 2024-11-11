@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+    <audio src="outfoxing.mp3"></audio>
+
+    <button class="paused">Play</button>
+    <br />
+    <input type="range" min="0" max="1" step="0.01" value="1" class="volume" />
+
+    <script type="text/babel">
+
+        // 创建AudioContext 实例, 用于操作音轨
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        const audioElement = document.querySelector("audio"); // 储存对<audio>元素的引用
+        const playBtn = document.querySelector("button");
+        const volumeSlider = document.querySelector(".volume");
+
+        const audioSource = audioCtx.createMediaElementSource(audioElement); // 表示将播放的<audio>元素
+
+
+        // 播放/暂停音频
+        playBtn.addEventListener("click", () => {
+            // 确认 context 在 suspended 状态（自动播放策略）
+            if (audioCtx.state === "suspended") {
+                audioCtx.resume();
+            }
+
+            // 如果音轨处于停止则开始播放
+            if (playBtn.getAttribute("class") === "paused") {
+                audioElement.play();
+                playBtn.setAttribute("class", "playing");
+                playBtn.textContent = "Pause";
+                // 如果音轨正在播放则停止播放
+            } else if (playBtn.getAttribute("class") === "playing") {
+                audioElement.pause();
+                playBtn.setAttribute("class", "paused");
+                playBtn.textContent = "Play";
+            }
+        });
+
+        // 如果音轨结束了
+        audioElement.addEventListener("ended", () => {
+            playBtn.setAttribute("class", "paused");
+            playBtn.textContent = "Play";
+        });
+
+
+
+        // 控制音量
+        const gainNode = audioCtx.createGain();
+
+        volumeSlider.addEventListener("input", () => {
+            gainNode.gain.value = volumeSlider.value;
+        })
+
+        audioSource.connect(gainNode).connect(audioCtx.destination); // 将音频图中的不同节点链接起来
+
+        const canvas = document.querySelector("canvas");
+        const ctx = canvas.etContext("2d");
+
+
+    </script>
+
+</body>
+
+</html>

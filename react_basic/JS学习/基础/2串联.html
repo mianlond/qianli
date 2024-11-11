@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+    <button>按这里</button>
+
+
+    <script type="text/babel">
+        const button = document.querySelector("button");
+
+        function greet() {
+            const name = prompt("你叫什么名字?");
+            const greeting = document.querySelector("#greeting");
+            greeting.textContent = `你好啊, ${name}! 很高兴见到你! `
+        }
+        button.addEventListener("click", greet);
+
+        // const greeting = "hello, ";
+        // const name = "Tom!";
+        // console.log(greeting + name);
+        // console.log(`${greeting}${name}`)
+
+        // const song = "黄金时代";
+        // const score = 9.9;
+        // const highestScore = 10;
+        // const output = `我喜欢歌曲<${song}>, 我给他打了 ${(score /highestScore) * 100} 分`;
+        // console.log(output);
+
+        // const newLine = `    黄金时代
+        // 打回原形
+        // ...`
+        // console.log(newLine);
+
+        // const newLine = "黄金时代\n打回原形\n..."
+        // console.log(newLine);
+
+        // const bigmouth = 'I\'ve got no right to take my place…';
+        // console.log(bigmouth);
+        
+        // const name = "Tom ";
+        // const number = 242;
+        // console.log(name + number);
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

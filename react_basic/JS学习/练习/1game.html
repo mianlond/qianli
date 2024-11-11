@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>菜鸟教程 React 实例</title>
+	<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+	<script
+		src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+	<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+	<div class="resultParas">
+		<p class="guesses"></p>
+		<p class="lastResult"></p>
+		<p class="lowOrHi"></p>
+	</div>
+	<label for="guessField">Enter a guess</label>
+	<input type="number" id="guessField" class="guessField" />
+	<input type="submit" value="Submit guess" class="guessSubmit" />
+
+	<script type="text/babel">
+		let randomNumber = Math.floor(Math.random() * 100) + 1; // 0~100随机数
+
+		const guesses = document.querySelector(".guesses");
+		const lastResult = document.querySelector(".lastResult");
+		const lowOrHi = document.querySelector(".lowOrHi");
+
+		const guessSubmit = document.querySelector(".guessSubmit");
+		const guessField = document.querySelector(".guessField");
+
+		let guessCount = 1;
+		let resetButton; // let 声明一个块级作用域的局部变量
+		guessField.focus();
+
+		function checkGuess() { // 函数 可复用的代码块
+			/* alert("I am a placeholder"); // 全局函数, 用于显示一个带有指定消息和确地按钮的模态对话框, 这个对话框会暂停JavaScript代码的执行，直到用户点击确定按钮。*/
+			const userGuess = Number(guessField.value);
+			if (guessCount === 1) {
+				guesses.textContent = "Previous guesses: "; // game开始, 输入数
+			}
+			guesses.textContent += `${userGuess}`;
+
+			if (userGuess === randomNumber) { // 猜对了, 设置背景为绿
+				lastResult.textContent = "Congratulations! You got it right!";
+				lastResult.style.backgroundColor = "green";
+				lowOrHi.textContent = "";
+				setGameOver();
+			} else if (guessCount === 10) { // 次数最多10次
+				lastResult.textContent = "!!!GAME OVER!!!";
+				lowOrHi.textContent = "";
+				setGameOver();
+			} else {
+				lastResult.textContent = "Wrong!";
+				lastResult.style.backgroundColor = "red"; // 猜错, 红色
+				if (userGuess < randomNumber) {
+					lowOrHi.textContent = "Last guess was too low"; // 猜小了
+				} else if (userGuess > randomNumber) {
+					lowOrHi.textContent = "Last guess was too high!" // 猜大了
+				}
+			}
+
+			guessCount++;
+			guessField.value = "";
+			guessField.focus();
+
+		}
+		guessSubmit.addEventListener("click", checkGuess);
+
+		function setGameOver() {
+			guessField.disabled = true;
+			guessSubmit.disabled = true;
+			resetButton = document.createElement("button");
+			resetButton.textContent = "start new game";
+			document.body.append(resetButton);
+			resetButton.addEventListener("click", resetGame)
+		}
+
+		function resetGame() {
+			guessCount = 1;
+
+			const resetParas = document.querySelectorAll(".resultParas");
+			for (const resetPara of resetParas) {
+				resetPara.textContent = ""; // 将textContent 设置为 ""
+			}
+
+			resetButton.parentNode.removeChild(resetButton); // 删除重置按钮
+
+			guessField.disabled = false;
+			guessSubmit.disabled = false;
+			guessField.value = "";
+			guessField.focus();
+			lastResult.style.backgroundColor = "white";
+
+			randomNumber = Math.floor(Math.random() * 100) + 1; // 生成新的随机数
+		}
+	</script>
+</body>
+
+</html>
+
+<!-- 侦听事件发生的结构称为事件监听器（Event Listener），
+ 响应事件触发而运行的代码块被称为事件处理器（Event Handler）。 -->

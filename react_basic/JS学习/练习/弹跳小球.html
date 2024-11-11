@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>弹跳彩球</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <h1>弹跳彩球</h1>
+    <canvas></canvas>
+    <!-- <script src="main.js", type="text/babel"> -->
+    <script type="text/babel">
+        const canvas = document.querySelector("canvas")
+        const ctx = canvas.getContext("2d");
+
+        const width = (canvas.width = window.innerWidth);
+        const height = (canvas.height = window.innerHeight);
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function randomColor() { // 生成随机的颜色值
+            return (
+                "rgb(" + random(0, 255) + ", " + random(0, 255) + ", " + random(0, 255) + ")"
+            );
+        }
+
+        function Ball(x, y, velX, velY, color, size) { // 创建小球模型
+            this.x = x;
+            this.y = y; // 坐标
+            this.velX = velX;
+            this.velY = velY; // 速度
+            this.color = color;
+            this.size = size; // 半径
+        }
+
+        Ball.prototype.draw = function () {
+            ctx.beginPath(); // 声明现在要开始画一个图形
+            ctx.fillStyle = this.color; // 定义图形的颜色
+            ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); // 画圆弧
+            ctx.fill(); // 结束
+        }
+
+        // 创建小球实例
+        let testBall = new Ball(50, 100, 4, 4, "blue", 10);
+
+        testBall.x;
+        testBall.size;
+        testBall.color;
+        testBall.draw(); // 画出来一个小球
+
+        //更新小球数据
+        Ball.prototype.update = function () {
+            if (this.x + this.size >= width) { // 检查小球是否碰到画布的边缘  右
+                this.velX = -this.velX;
+            }
+
+            if (this.x - this.size <= 0) { // 从左边离开
+                this.velX = -this.velX;
+            }
+
+            if (this.y + this.size >= height) { // 下
+                this.velY = -this.velY;
+            }
+
+            if (this.y - this.size <= 0) { // 上
+                this.velY = -this.velY;
+            }
+
+            this.x += this.velX;
+            this.y += this.velY;
+        };
+
+
+         // 添加碰撞检测
+         Ball.prototype.collisionDetect = function () {
+            for (let j = 0; j < balls.length; j++) {
+                if (this != balls[j]) {
+                    const dx = this.x - balls[j].x;
+                    const dy = this.y - balls[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < this.size + balls[j].size) {
+                        balls[j].color = this.color = randomColor();
+                    }
+                }
+            }
+        };
+
+        // 让球动起来
+        let balls = [];
+
+        while (balls.length < 25) {
+            // 球离画布边缘球本身一倍宽度的距离
+            let size = random(10, 20);
+            let ball = new Ball(
+                random(0 + size, width - size),
+                random(0 + size, height - size),
+                random(-7, 7),
+                random(-7, 7),
+                randomColor(),
+                size,
+            );
+            balls.push(ball);
+        }
+        
+        function loop() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+            ctx.fillRect(0, 0, width, height);
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].draw();
+                balls[i].update();
+                balls[i].collisionDetect();
+            }
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>菜鸟教程 React 实例</title>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js" ></script>
+<script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js" ></script>
+</head>
+<body>
+<div id="root"></div>
+<button type="button">Player 1: Chris</button>
+<script type="text/babel">
+	const button = document.querySelector("button");
+
+	button.addEventListener("click", updateName);
+
+	function updateName() {
+		const name = prompt("请输入新的名字");
+		button.textContent = `Player 1: ${name}`
+	}
+	
+// 	在JavaScript中，prompt 是一个全局函数，用于显示一个对话框，提示用户输入一些信息，并返回用户输入的值。这个函数通常用于简单的用户交互，比如获取用户的名字、年龄或者其他任何信息。
+
+// prompt 函数的基本语法如下：
+
+// javascript
+// var result = prompt(message, [default]);
+// message：这是显示在对话框中的文本，提示用户输入信息。
+// default（可选）：这是对话框中输入框的默认值。
+// 当用户点击“确定”按钮时，prompt 函数会返回用户输入的字符串；如果用户点击“取消”按钮，或者关闭对话框，则返回 null。
+
+</script>
+</body>
+</html>

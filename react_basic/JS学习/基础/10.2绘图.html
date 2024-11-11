@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+    <canvas width="320" height="240"></canvas>
+    <canvas class="myCanvas">
+        <p>添加恰当的反馈信息。</p>
+    </canvas>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+
+
+
+    <script type="text/babel">
+        var canvas = document.querySelector(".myCanvas"); // 存储画布的引用
+        var width = (canvas.width = window.innerWidth);
+        var height = (canvas.height = window.innerHeight);
+
+        // 获取画布上下文并完成设置
+        var ctx = canvas.getContext("2d"); // 2d画布
+
+        ctx.fillStyle = "rgb(0, 0, 0)";
+        ctx.fillRect(0, 0, width, height); // 设置画布背景为黑
+
+        // ctx.fillStyle = "rgb(250, 0, 0)"; // 红色矩阵
+        // ctx.fillRect(50, 50, 100, 150); // 左边, 顶部距画布50像素, 宽100, 高150
+
+        // ctx.fillStyle = "rgb(0, 255, 0)"; // 绿色矩阵
+        // ctx.fillRect(50, 50, 100, 150); // 左边, 顶部距画布75像素, 宽100, 高100
+        // /*绘制矩形、线等操作按出现的顺序依次进行, 会覆盖旧层*/
+
+        // ctx.fillStyle = "rgba(255, 0, 255, 0.75)"; // a指定"α 通道"的值, 既颜色透明度, 值越高透明度越高
+        // ctx.fillRect(25, 100, 175, 50);
+
+        // // 描边stroke, 线条宽度 --- strokeStyle属性设置描边颜色, strokeRect绘制轮廓
+        // ctx.strokeStyle = "rgb(250, 0, 0)"; // 红色边
+        // ctx.strokeRect(25, 25, 275, 200);
+        // ctx.lineWidth = 5; // 默认为1, 描边宽度
+
+        // 绘制路径
+        /*
+        beginPath()：在钢笔当前所在位置开始绘制一条路径。在新的画布中，钢笔起始位置为 (0, 0)。
+        moveTo()：将钢笔移动至另一个坐标点，不记录、不留痕迹，只将钢笔“跳”至新位置。
+        fill()：通过为当前所绘制路径的区域填充颜色来绘制一个新的填充形状。
+        stroke()：通过为当前绘制路径的区域描边，来绘制一个只有边框的形状。  
+        路径也可和矩形一样使用 lineWidth 和 fillStyle / strokeStyle 等功能。
+        */
+
+        ctx.fillStyle = "rgb(255, 0, 0)";
+        ctx.beginPath();
+        ctx.moveTo(50, 50);
+        // 绘制路径
+        ctx.fill();
+
+        // 绘制等边三角形
+        function degToRad(degrees) { // 角度换算为弧度
+            return (degrees * Math.PI) / 180
+        }
+        ctx.fillStyle = "rgb(255, 0, 0)";
+        ctx.beginPath();
+        ctx.moveTo(50, 50);
+
+        ctx.lineTo(150, 50);
+        var triHeight = 50 * Math.tan(degToRad(60));
+        ctx.lineTo(100, 50 + triHeight);
+        ctx.lineTo(50, 50);
+        ctx.fill(); // 终止路径, 并未图形填充颜色
+
+        // 画圆 --- arc() ,通过连续的点来绘制圆或弧
+        // ctx.fillStyle = 'rgb(0, 0, 255)';
+        // ctx.beginPath();
+        // ctx.arc(150, 106, 50, degToRad(0), degToRad(360), false);
+        // ctx.fill();
+
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(200, 106, 50, degToRad(-45), degToRad(45), true);
+        ctx.lineTo(200, 106);
+        ctx.fill();
+
+        // 绘制文本
+        /*
+        fillText() ：绘制有填充色的文本。
+        strokeText()：绘制文本外边框（描边）。
+        参数: 需要绘制的文字, 文本框, 左上顶点的x, y坐标
+        */
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 1;
+        ctx.font = "36px arial"; // 用于指定字体族、字号
+        ctx.strokeText("love", 50, 50);
+
+        ctx.fillStyle = "red";
+        ctx.font = "48px georgia";
+        ctx.fillText("peace", 50, 150);
+
+        // 绘制图片 --- drawImage() 将图片绘制在画布上, 参数: 需要渲染的图片, 图片左上角的x, y坐标
+        var image = new Image();
+        image.src = "picture.jpg";
+        image.onload = function () {
+            // ctx.drawImage(image, 50, 50);
+            ctx.drawImage(image, 20, 20, 185, 175, 50, 50, 185, 175);
+
+        }
+
+        // 循环和动画
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

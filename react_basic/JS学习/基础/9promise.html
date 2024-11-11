@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+  <script
+    src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="greeting"></div>
+
+  <script type="text/babel">
+
+    // fetch() API
+    const fetchPromise = fetch(
+      "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+    );
+
+    console.log(fetchPromise);
+
+    fetchPromise.then((response) => {
+      console.log(`已收到响应：${response.status}`); // 200
+    });
+
+    console.log("已发送请求……");
+
+    // 链式
+    // fetchPromise.then((response) => {
+    //   const jsonPromise = response.json();
+    //   jsonPromise.then((json) => {
+    //     console.log(json[0].name); // baked beans
+    //   });
+    // });
+
+    // then 本身也会返回一个Promise
+    // 这个Promise将指示then 中调用的异步函数的完成状态
+    /* fetchPromise // Promise链
+      .then((response) => response.json()) // 返回json()返回的Promise
+      .then((data) =>{ // 在返回值上调用then()
+        console.log(data[0].name)
+      });  */ //同上
+
+    // 需要在尝试读取请求之前检查服务器是否接受并处理了改请求
+    // fetchPromise
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP 请求错误: ${response.status}`);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((json) => {
+    //     console.log(json[0].name);
+    //   })
+
+    // 错误处理 Promise对象提供了一个 catch() 方法, 失败时调用
+    const fetchPromiseA = fetch(
+      "bad-scheme://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+    );
+    fetchPromiseA
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP 请求错误: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((json) => {
+        console.log(json[0].name);
+      })
+      .catch((error) => {
+        console.error(`${error}`); // TypeError: Failed to fetch
+      });
+
+    // Promise.all() 接受一个Promise数组, 并返回一个单一的Promise
+    // 当且仅当数组中所有的 Promise 都被兑现时，才会通知 then() 处理函数并提供一个包含所有响应的数组，数组中响应的顺序与被传入 all() 的 Promise 的顺序相同。
+    // 会被拒绝——如果数组中有任何一个 Promise 被拒绝。此时，catch() 处理函数被调用，并提供被拒绝的 Promise 所抛出的错误。
+
+    const fetchPromise1 = fetch(
+      "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+    );
+    const fetchPromise2 = fetch(
+      "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/not-found",
+    );
+    const fetchPromise3 = fetch(
+      "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json",
+    );
+    Promise.all([fetchPromise1, fetchPromise2, fetchPromise3])
+      .then((responses) => {
+        for (const response of responses) {
+          console.log(`${response.url}: ${response.status}`); // fetchPromise2 404(not Found)
+        }
+      })
+      .catch((error) => {
+        console.error(`${error}`);
+      });
+
+    // async 关键字 添加在一个函数的开头, 可以是其成为一个异步函数
+    async function fetchProducts() {
+      try {
+        // 在这一行之后，我们的函数将等待 `fetch()` 调用完成
+        // 调用 `fetch()` 将返回一个“响应”或抛出一个错误
+        const response = await fetch(
+          "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP 请求错误：${response.status}`);
+        }
+        // 在这一行之后，我们的函数将等待 `response.json()` 的调用完成
+        // `response.json()` 调用将返回 JSON 对象或抛出一个错误
+        const json = await response.json();
+        console.log(json[0].name);
+      } catch (error) {
+        console.error(`无法获取产品列表：${error}`);
+      }
+    }
+
+    fetchProducts();
+
+    // await 强制异步操作以串联
+    async function fetchProducts() {
+      try {
+        const response = await fetch(
+          "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP 请求错误：${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(`无法获取产品列表：${error}`);
+      }
+    }
+
+    const promise = fetchProducts();
+    promise.then((data) => console.log(data[0].name));
+
+
+  </script>
+
+</body>
+<!-- AI
+在JavaScript中，`Promise` 是一种用于异步计算的对象。
+它代表了一个可能还不可用的值，或者一个在未来某个时间点才可用的最终值。
+`Promise` 提供了一种更加优雅和易于管理的方式来处理异步操作，比如网络请求、文件读写等。
+
+### Promise 的基本特性
+
+1. **状态**：
+   - `Pending`（进行中）：初始状态，既不是成功，也不是失败状态。请求进行中
+   - `Fulfilled`（已成功）：意味着操作成功完成。then()函数被调用
+   - `Rejected`（已失败）：意味着操作失败。 catch()函数濒危调用
+
+2. **方法**：
+   - `Promise.prototype.then()`：在 `Promise` 成功时执行，可以链式调用。
+   - `Promise.prototype.catch()`：在 `Promise` 失败时执行。
+   - `Promise.prototype.finally()`：无论 `Promise` 成功还是失败，都会执行。
+
+3. **构造函数**：
+   - `new Promise(executor)`：创建一个新的 `Promise` 实例，`executor` 是一个执行器函数，
+   它接收两个参数：`resolve` 和 `reject`。
+   `resolve` 用于将 `Promise` 状态从 `Pending` 改为 `Fulfilled`，
+   `reject` 用于将状态从 `Pending` 改为 `Rejected`。
+
+### 使用 Promise
+
+下面是如何创建和使用 `Promise` 的一个简单示例：
+
+```javascript
+// 创建一个新的 Promise
+const myPromise = new Promise((resolve, reject) => {
+  // 异步操作，例如 setTimeout
+  setTimeout(() => {
+    const value = 'Hello, Promise!';
+    resolve(value); // 成功时调用 resolve
+  }, 1000);
+});
+
+// 使用 then 处理成功情况
+myPromise.then((value) => {
+  console.log(value); // 输出：Hello, Promise!
+});
+
+// 使用 catch 处理失败情况
+myPromise.catch((error) => {
+  console.error(error);
+});
+```
+
+### Promise 的链式调用
+
+`Promise` 的 `then` 方法返回一个新的 `Promise`，这允许链式调用：
+
+```javascript
+myPromise
+  .then((value) => {
+    return value + ' World!';
+  })
+  .then((newValue) => {
+    console.log(newValue); // 输出：Hello, Promise! World!
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+```
+
+### Promise 的静态方法
+
+`Promise` 还有一些静态方法，
+如 `Promise.all`、`Promise.race`、`Promise.resolve` 和 `Promise.reject`，
+它们用于处理多个 `Promise`：
+
+- `Promise.all(iterable)`：当所有的 `Promise` 都成功时，返回一个新的 `Promise`。
+- `Promise.race(iterable)`：当第一个 `Promise` 成功或失败时，返回一个新的 `Promise`。
+- `Promise.resolve(value)`：返回一个已经成功的 `Promise`。
+- `Promise.reject(reason)`：返回一个已经失败的 `Promise`。
+
+### Promise 的重要性
+
+`Promise` 是现代JavaScript异步编程的核心，它使得异步代码的编写和管理变得更加直观和简洁。
+它还为更高级的异步模式，如 `async`/`await`，提供了基础。
+ -->
+
+</html>

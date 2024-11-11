@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <button id="set-alarm">Set alarm</button>
+    <div id="output"></div>
+    <script type="text/babel">
+        // const output = document.querySelector("#output");
+        // const button = document.querySelector("#set-alarm");
+
+        // function setAlarm() {
+        //     window.setTimeout(() => {
+        //         output.textContent = "wake up!";
+        //     }, 1000);
+        // }
+
+        // button.addEventListener("click", setAlarm);
+
+        // function alarm(person, delay) {
+        //     return new Promise((resolve, reject) => {
+        //         if (delay < 0) {
+        //             throw new Error("Alarm delay must not be negative");
+        //         }
+        //         window.setTimeout(() => {
+        //             resolve(`Wake up, ${person}!`);
+        //         }, delay);
+        //     });
+        // }
+
+
+        // const name = document.querySelector("#name");
+        // const delay = document.querySelector("#delay");
+        // const button = document.querySelector("#set-alarm");
+        // const output = document.querySelector("#output");
+
+        // function alarm(person, delay) {
+        //     return new Promise((resolve, reject) => {
+        //         if (delay < 0) {
+        //             throw new Error("Alarm delay must not be negative");
+        //         }
+        //         window.setTimeout(() => {
+        //             resolve(`Wake up, ${person}!`);
+        //         }, delay);
+        //     });
+        // }
+
+        // button.addEventListener("click", () => {
+        //     alarm(name.value, delay.value)
+        //         .then((message) => (output.textContent = message))
+        //         .catch((error) => (output.textContent = `Couldn't set alarm: ${error}`));
+        // });
+
+
+        const name = document.querySelector("#name");
+        const delay = document.querySelector("#delay");
+        const button = document.querySelector("#set-alarm");
+        const output = document.querySelector("#output");
+
+        function alarm(person, delay) {
+            return new Promise((resolve, reject) => {
+                if (delay < 0) {
+                    throw new Error("Alarm delay must not be negative");
+                }
+                window.setTimeout(() => {
+                    resolve(`Wake up, ${person}!`);
+                }, delay);
+            });
+        }
+
+        button.addEventListener("click", async () => {
+            try {
+                const message = await alarm(name.value, delay.value);
+                output.textContent = message;
+            } catch (error) {
+                output.textContent = `Couldn't set alarm: ${error}`;
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

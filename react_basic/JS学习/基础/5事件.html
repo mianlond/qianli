@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+    <button>改变颜色</button>
+
+
+    <script type="text/babel">
+        //addEventListener() 添加了一个事件处理器
+        // const btn = document.querySelector("button");
+
+        // function random(number) {
+        //     return Math.floor(Math.random() * (number + 1));
+        // }
+
+        // btn.addEventListener("click", () => { // 监听点击事件 click
+        //     const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        //     document.body.style.backgroundColor = rndCol;
+        // });
+
+        // const btn = document.querySelector("button");
+
+        // function random(number) {
+        //     return Math.floor(Math.random() * (number + 1));
+        // }
+
+        // function changeBackground() {
+        //     const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        //     document.body.style.backgroundColor = rndCol;
+        // }
+
+        // btn.addEventListener("click", changeBackground);
+
+        // removeEventListener() 方法删除事件处理器
+        // const controller = new AbortController();
+
+        // btn.addEventListener("click",
+        //     () => {
+        //         const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        //         document.body.style.backgroundColor = rndCol;
+        //     },
+        //     { signal: controller.signal } // 向该处理器传递 AbortSignal
+        // );
+        // controller.abort(); // 移除任何/所有与该控制器相关的事件处理器
+
+        //事件对象
+        const btn = document.querySelector("button");
+
+        function random(number) {
+            return Math.floor(Math.random() * (number + 1));
+        }
+
+        function bgChange(e) {
+            const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)}`;
+            e.target.style.backgroundColor = rndCol;
+            console.log(e);
+        }
+
+        btn.addEventListener("click", bgChange);
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+
+    <script type="text/babel">
+        // 使用 class 关键字声明类
+        class Person {
+            name; // 属性
+
+            constructor(name) { // 构造函数使用 constructor 声明
+                this.name = name;
+            }
+
+            introduceSelf() { // 方法
+                console.log(`Hi! I'm ${this.name}`);
+            }
+        }
+        const tom = new Person("Tom");
+
+        tom.introduceSelf(); // Hi! I'm Tom
+
+
+        // 使用 extend 关键字声明 一个类 继承 另一个类  
+        class Professor extends Person {
+            teaches;
+            constructor(name, teaches) {
+                super(name);
+                this.teaches = teaches;
+            }
+            /* 如果子类有任何自己的初始化内容需要完成，
+            它也必须先使用 super() 来调用父类的构造函数，
+            并传递父类构造函数期望的任何参数。*/
+
+            introduceSelf() { // 覆盖父类 introduceSelf 方法
+                console.log(`my job is ${this.name}, and I'll be a ${this.teaches} professor`);
+            }
+
+            grade(paper) { // 添加新的方法
+                const grade = Math.floor(Math.random() * (5 - 1) + 1);
+                console.log(grade);
+            }
+        }
+        const walsh = new Professor("Walsh", "Psychology");
+        walsh.introduceSelf();
+
+        walsh.grade("my paper"); // 
+
+        // class Student extends Person {
+        //     #year; // 私有数据属性, 内部使用
+
+        //     constructor(name, year) {
+        //         super(name);
+        //         this.#year = year;
+        //     }
+        //     introduceSelf() {
+        //         console.log(`Hi! I'm ${this.name}, and I'm in year ${this.#year}`);
+        //     }
+        //     canStudyArchery() {
+        //         return this.#year > 1;
+        //     }
+        // }
+        // const summers = new Student("Summers", 10);
+        // summers.introduceSelf();
+        // summers.canStudyArchery();
+        // summers.#year; // SyntaxError
+
+        // 私有方法
+        class Example {
+            somePublicMethod() {
+                this.#somePrivateMethod();
+            }
+
+            #somePrivateMethod() {
+                console.log("You called me?");
+            }
+        }
+
+        const myExample = new Example();
+
+        myExample.somePublicMethod(); // 'You called me?'
+
+        // myExample.#somePrivateMethod(); 
+
+
+        /*JSON 是一种纯数据格式，它只包含属性，没有方法。
+        JSON 要求在字符串和属性名称周围使用双引号。单引号无效。
+        甚至一个错位的逗号或分号就可以导致 JSON 文件出错。你应该小心的检查你想使用的数据。你可以通过像 JSONLint 这样的应用程序来验证 JSON。
+        JSON 实际上可以是任何可以有效包含在 JSON 中的数据类型的形式。比如，单个字符串或者数字就是有效的 JSON 对象。
+        与 JavaScript 代码中对象属性可以不加引号不同，JSON 中只有带引号的字符串可以用作属性*/
+
+    </script>
+
+</body>
+
+</html>

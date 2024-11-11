@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/18.2.0/umd/react.production.min.js"></script>
+    <script
+        src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="greeting"></div>
+    <label for="weather">选择今天的天气：</label>
+    <select id="weather">
+        <option value="">--作出选择--</option>
+        <option value="sunny">晴天</option>
+        <option value="rainy">雨天</option>
+        <option value="snowing">雪天</option>
+        <option value="overcast">阴天</option>
+    </select>
+
+    <p></p>
+
+    <script type="text/babel">
+
+        // if语句
+        /*if (condition) {
+            //    条件为真时运行的代码 
+        } else if (condition) {
+            //    条件为真时运行的代码 
+        } else {
+            //    否则，运行其他的代码 
+        }*/
+
+        // const select = document.querySelector("select");
+        // const para = document.querySelector("p");
+
+        // select.addEventListener("change", setWeather);
+
+        // function setWeather() {
+        //     const choice = select.value;
+
+        //     if (choice === "sunny") {
+        //         para.textContent = "阳光明媚。穿上短裤吧！去海滩，或公园，吃个冰淇淋。";
+        //     } else if (choice === "rainy") {
+        //         para.textContent = "外面下着雨；带上雨衣和雨伞，不要在外面呆太久。";
+        //     } else if (choice === "snowing") {
+        //         para.textContent =
+        //             "大雪纷飞，天寒地冻！最好呆在家里喝杯热巧克力，或者去堆个雪人。";
+        //     } else if (choice === "overcast") {
+        //         para.textContent =
+        //             "虽然没有下雨，但天空灰蒙蒙的，随时都可能变天，所以要带一件雨衣以防万一。";
+        //     } else {
+        //         para.textContent = "";
+        //     }
+        // }
+
+
+        // let cheese = "Cheddar";
+
+        // if (cheese) {
+        //     console.log("耶！这里有一些制作奶酪吐司的奶酪。"); // 输出
+        // } else {
+        //     console.log("今天你的吐司上没有奶酪了。");
+        // }
+
+        // if ("") {
+        //     console.log("耶！这里有一些制作奶酪吐司的奶酪。"); 
+        // } else {
+        //     console.log("今天你的吐司上没有奶酪了。");// 输出
+        // }
+        /*
+        1. &&——逻辑与。允许你把两个或多个表达式连在一起，
+        这样所有的表达式都必须单独评估为 true，整个表达式才能返回 true。
+        
+        2. ||——逻辑或。允许你把两个或多个表达式连在一起，
+        其中一个或多个表达式必须单独评估为 true，整个表达式才能返回 true。*/
+        // const choice = "sunny";
+        // const temperature = 86;
+        // if (choice === "sunny" && temperature < 86) {
+        //     para.textContent =
+        //         "外面现在是" +
+        //         temperature +
+        //         " 华氏度——风和日丽。让我们去海滩或公园，吃个冰激凌。";
+        // } else if (choice === "sunny" && temperature >= 86) {
+        //     para.textContent =
+        //         "外面现在是" +
+        //         temperature +
+        //         " 华氏度——很热！如果你想出去，一定要涂抹一些防晒霜。";
+        // }
+
+
+
+        /*
+        switch (expression) {
+            case choice1:
+                // 运行这段代码
+                break;
+
+            case choice2:
+                // 否则，运行这段代码
+                break;
+
+            // 包含尽可能多的情况
+
+            default:
+                // 此外，仅运行这段代码
+                break;
+        }
+        */
+        const select = document.querySelector("select");
+        const para = document.querySelector("p");
+
+        select.addEventListener("change", setWeather);
+
+        function setWeather() {
+            const choice = select.value;
+
+            switch (choice) {
+                case "sunny":
+                    para.textContent = "阳光明媚。穿上短裤吧！去海滩，或公园，吃个冰淇淋。";
+                    break;
+                case "rainy":
+                    para.textContent = "外面下着雨；带上雨衣和雨伞，不要在外面呆太久。";
+                    break;
+                case "snowing":
+                    para.textContent =
+                        "大雪纷飞，天寒地冻！最好呆在家里喝杯热巧克力，或者去堆个雪人。";
+                    break;
+                case "overcast":
+                    para.textContent =
+                        "虽然没有下雨，但天空灰蒙蒙的，随时都可能变天，所以要带一件雨衣以防万一。";
+                    break;
+                default:
+                    para.textContent = "";
+            }
+        }
+
+        // condition ? 运行这段代码 : 否则，运行这段代码
+        const greeting = true ? "小王生日快乐，祝你有个美好的一天！": "小王早上好。";
+
+
+    </script>
+
+</body>
+
+</html>
