@@ -13,12 +13,7 @@
     <div id="errorMessage" class="error-message"></div>
 
     <div class="tabs">
-      <button
-        class="tablink"
-        v-for="tab in tabs"
-        :key="tab.id"
-        @click="openTab(tab.id)"
-      >
+      <button class="tablink" v-for="tab in tabs" :key="tab.id" @click="openTab(tab.id)">
         {{ tab.name }}
       </button>
     </div>
@@ -28,33 +23,129 @@
       <h3>{{ tab.name }}</h3>
       <!-- Form Contents -->
       <!-- You can add the form contents for each tab here -->
+      <!-- Project Menu Tab Content -->
+      <div v-if="currentTab === 'projectMenu'">
+        <form id="projectMenuForm">
+          <label for="sourceEnv">源环境：</label>
+          <select v-model="sourceEnv">
+            <option value="platform_dev">开发配置工具pltdev</option>
+            <option value="platform_sit">edgesit配置工具pltsit</option>
+            <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+            <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+            <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+            <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+            <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+            <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+            <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+            <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+            <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+            <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
+            <option value="center_app_prod">生产环境中心云微服务</option>
+            <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+            <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+            <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+          </select><br>
+
+          <label for="targetEnv">目标环境：</label>
+          <select v-model="targetEnv">
+            <option value="platform_dev">开发配置工具pltdev</option>
+            <option value="platform_sit">edgesit配置工具pltsit</option>
+            <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+            <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+            <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+            <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+            <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+            <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+            <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+            <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+            <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+            <option value="center_app_prod">生产环境中心云微服务</option>
+            <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+            <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+            <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+          </select><br>
+
+          <button type="button" @click="publishProjectMenu">发布</button>
+          <button type="button" @click="downloadProjectMenu">下载源环境seeddata</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      currentTab: 'firstImport',
-      tabs: [
-        { id: 'firstImport', name: '第一次导入' },
-        { id: 'projectMenu', name: '发布项目菜单' },
-        { id: 'translation', name: '发布多语言' },
-        { id: 'app', name: '发布应用' },
-        { id: 'pbc', name: '发布PBC' },
-        { id: 'dataSync', name: '数据同步' },
-        { id: 'gray', name: '灰度发布' },
-        { id: 'increment', name: '增量发布' },
-        { id: 'micro', name: '微服务发布' },
-      ],
-    };
-  },
-  methods: {
-    openTab(tabId) {
-      this.currentTab = tabId;
-    },
-  },
+<script setup>
+import { ref } from 'vue';
+
+const currentTab = ref('firstImport');
+const tabs = [
+  { id: 'firstImport', name: '第一次导入' },
+  { id: 'projectMenu', name: '发布项目菜单' },
+  { id: 'translation', name: '发布多语言' },
+  { id: 'app', name: '发布应用' },
+  { id: 'pbc', name: '发布PBC' },
+  { id: 'dataSync', name: '数据同步' },
+  { id: 'gray', name: '灰度发布' },
+  { id: 'increment', name: '增量发布' },
+  { id: 'micro', name: '微服务发布' },
+];
+
+const sourceEnv = ref('sourceEnv');
+const targetEnv = ref('targetEnv');
+const openTab = (tabId) => {
+  currentTab.value = tabId;
+};
+
+const publishProjectMenu = () => {
+  console.log('发布项目菜单', sourceEnv.value, targetEnv.value);
+
+//   var sourceEnv = document.getElementById("sourceEnv").value;
+
+// var targetEnv = document.getElementById("targetEnv").value;
+
+// REST API 请求 
+
+fetch(`http://localhost:8080/api/v1/seed-data/restoreProjectMenu/${sourceEnv}/to/${targetEnv}`, {
+
+    method: 'POST',
+
+    headers: {
+
+        'Accept': '*/*',
+
+        'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+        'Accept-Encoding': 'gzip, deflate, br',
+
+        'Connection': 'keep-alive',
+
+        'Host': 'localhost'
+
+    }
+
+})
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error('网络错误，发布失败');
+
+        }
+
+        showSuccessMessage('发布成功');
+
+    })
+
+    .catch(error => {
+
+        showErrorMessage('发布失败:' + error.message);
+
+    });
+};
+
+const downloadProjectMenu = () => {
+  console.log('下载源环境seeddata', sourceEnv.value);
+  // 这里添加下载源环境seeddata的逻辑
 };
 </script>
 
