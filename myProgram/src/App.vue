@@ -1,8 +1,8 @@
 <template>
 
   <div>
-    <h1 >CMaaS 应用发布系统</h1>
-    <div class="alert-message" >
+    <h1>CMaaS 应用发布系统</h1>
+    <div class="alert-message">
       <p style="color: red;">发布非小事，谨慎操作，选择环境请反复核对，翻车后果自负！切记切记！</p>
     </div>
 
@@ -18,7 +18,7 @@
           :class="{ 'tablink active': currentTab.value === tab.id }" @click="openTab(tab.id)">
           {{ tab.name }}
         </Button>
-        <div >
+        <div>
           <a-card :bordered="false" style="width: 500px">
             <publishProjectMenu :currentTab="currentTab" />
           </a-card>
@@ -26,6 +26,28 @@
       </a-card>
     </div>
   </div>
+
+
+  <!-- <div class="tabs">
+    <a-switch :checked="theme === 'dark'" checked-children="Dark" un-checked-children="Light" @change="changeTheme" />
+    <br />
+    <br />
+    <a-menu style="width: 256px" v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline"
+      :theme="theme">
+      <a-sub-menu key="sub1">
+        <template #icon>
+          <AppstoreOutlined />
+        </template>
+        <template #title>Navigation Three</template> 
+           <Button type="primary" v-for="tab in tabs" :key="tab.id"
+            :class="{ 'tablink active': currentTab.value === tab.id }" @click="openTab(tab.id)">
+            {{ tab.name }}
+          </Button> 
+      </a-sub-menu>
+    </a-menu>
+  </div> -->
+
+
 </template>
 
 <script setup>
@@ -50,11 +72,39 @@ function openTab(id) {
   console.log(id)
   currentTab.value = id;
 }
+
+
+
+// import { defineComponent, reactive, toRefs } from 'vue';
+// import {
+//   MailOutlined,
+//   CalendarOutlined,
+//   AppstoreOutlined,
+//   SettingOutlined,
+// } from '@ant-design/icons-vue';
+// const state = reactive({
+//   theme: 'dark',
+//   selectedKeys: ['1'],
+//   openKeys: ['sub1'],
+// });
+// const changeTheme = (checked) => {
+//   state.theme = checked ? 'dark' : 'light';
+// };
+
+
+
+// components: {
+//   MailOutlined,
+//     CalendarOutlined,
+//     AppstoreOutlined,
+//     SettingOutlined
+// }
+
+
 </script>
 
 
 <style>
-
 .alert-message {
 
   padding: 20px;
@@ -87,5 +137,4 @@ function openTab(id) {
   /* 强调文本颜色 */
 
 }
-
 </style>
