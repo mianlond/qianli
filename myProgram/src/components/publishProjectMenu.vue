@@ -1,4 +1,63 @@
 <template>
+  
+  <div v-if="currentTab === 'firstImport'">
+
+    <h3>第一次导入</h3>
+
+    <form id="firtImportMenu">
+
+      <label for="plt">源环境：</label>
+
+      <Select id="plt" default-value="platform_dev">
+
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
+
+      </Select><br>
+
+      <label for="importEnv">目标环境：</label>
+
+      <a-select id="importEnv" default-value="platform_dev">
+
+        <a-select-option value="platform_dev">开发配置工具cmaaspltdev</a-select-option>
+
+        <a-select-option value="platform_sit">cmaasedgesit配置工具cmaaspltsit</a-select-option>
+
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
+
+        <a-select-option value="edge_app_dev">开发环境边缘云微服务cmaasedgedev</a-select-option>
+
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
+
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务cmaasedgesit</a-select-option>
+
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
+
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) cmaasedgeuat</a-select-option>
+
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
+
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 cmaasctcedgeuat</a-select-option>
+
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
+
+        <a-select-option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</a-select-option>
+
+        <a-select-option value="center_app_prod">生产环境中心云微服务cmaas</a-select-option>
+
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
+
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务cmaasctcedge</a-select-option>
+
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
+
+      </a-select><br>
+
+      <a-button type="primary" @click="firstImportMenu()">发布</a-button>
+
+    </form>
+
+  </div>
+
   <div v-if="currentTab === 'projectMenu'">
     <h3>发布项目菜单</h3>
 
@@ -6,85 +65,85 @@
 
       <label for="sourceEnv">源环境：</label>
 
-      <select id="sourceEnv">
+      <a-select id="sourceEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
+        <a-select-option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="targetEnv">目标环境：</label>
 
-      <select id="targetEnv">
+      <a-select id="targetEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="publishProjectMenu()">发布</button>
+      <a-button type="primary" @click="publishProjectMenu()">发布</a-button>
 
-      <button type="button" onclick="downloadProjectMenu()">下载源环境seeddata</button>
+      <a-button type="primary" @click="downloadProjectMenu()">下载源环境seeddata</a-button>
 
     </form>
   </div>
-  
+
   <div v-if="currentTab === 'app'">
 
     <h3>发布应用</h3>
@@ -93,81 +152,81 @@
 
       <label for="sourceEnvApp">源环境：</label>
 
-      <select id="sourceEnvApp">
+      <a-select id="sourceEnvApp" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
+        <a-select-option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="targetEnvApp">目标环境：</label>
 
-      <select id="targetEnvApp">
+      <a-select id="targetEnvApp" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="publishApp()">发布</button>
+      <a-button type="primary" @click="publishApp()">发布</a-button>
 
-      <button type="button" onclick="downloadApp()">下载源环境seeddata</button>
+      <a-button type="primary" @click="downloadApp()">下载源环境seeddata</a-button>
 
     </form>
 
@@ -183,85 +242,85 @@
 
       <label for="sourceEnvPbc">源环境：</label>
 
-      <select id="sourceEnvPbc">
+      <a-select id="sourceEnvPbc" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
+        <a-select-option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="targetEnvPbc">目标环境：</label>
 
-      <select id="targetEnvPbc">
+      <a-select id="targetEnvPbc" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="pbcName">PBC名称：</label>
 
       <input type="text" id="pbcName"><br>
 
-      <button type="button" onclick="publishPbc()">发布</button>
+      <a-button type="primary" @click="publishPbc()">发布</a-button>
 
-      <button type="button" onclick="downloadPbc()">下载源环境seeddata</button>
+      <a-button type="primary" @click="downloadPbc()">下载源环境seeddata</a-button>
 
     </form>
 
@@ -277,144 +336,85 @@
 
       <label for="sourceEnvAll">源环境：</label>
 
-      <select id="sourceEnvAll">
+      <a-select id="sourceEnvAll" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
+        <a-select-option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="targetEnvAll">目标环境：</label>
 
-      <select id="targetEnvAll">
+      <a-select id="targetEnvAll" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务cmaas</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务cmaas</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="publishAllPbcs()">发布</button>
+      <a-button type="primary" @click="publishAllPbcs()">发布</a-button>
 
-      <button type="button" onclick="downloadAllPbcs()">下载源环境seeddata</button>
-
-    </form>
-
-  </div>
-
-  <div v-if="currentTab === 'firstImport'">
-
-    <h3>第一次导入</h3>
-
-    <form id="firtImportMenu">
-
-      <label for="plt">源环境：</label>
-
-      <select id="plt">
-
-        <option value="platform_dev">开发配置工具pltdev</option>
-
-      </select><br>
-
-      <label for="importEnv">目标环境：</label>
-
-      <select id="importEnv">
-
-        <option value="platform_dev">开发配置工具cmaaspltdev</option>
-
-        <option value="platform_sit">cmaasedgesit配置工具cmaaspltsit</option>
-
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
-
-        <option value="edge_app_dev">开发环境边缘云微服务cmaasedgedev</option>
-
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
-
-        <option value="edge_app_sit">测试环境边缘云微服务cmaasedgesit</option>
-
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
-
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) cmaasedgeuat</option>
-
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
-
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 cmaasctcedgeuat</option>
-
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
-
-        <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
-
-        <option value="center_app_prod">生产环境中心云微服务cmaas</option>
-
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
-
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务cmaasctcedge</option>
-
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
-
-      </select><br>
-
-      <button type="button" onclick="firstImportMenu()">发布</button>
+      <a-button type="primary" @click="downloadAllPbcs()">下载源环境seeddata</a-button>
 
     </form>
 
   </div>
-
 
 
   <div v-if="currentTab === 'syncTenant'">
@@ -425,37 +425,37 @@
 
       <label for="syncEnv">选择同步租户的环境：</label>
 
-      <select id="syncEnv">
+      <a-select id="syncEnv" default-value="platform_dev">
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">开发环境边缘云微服务cmaasedgedev</option>
+        <a-select-option value="edge_app_dev">开发环境边缘云微服务cmaasedgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务cmaasedgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务cmaasedgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) cmaasedgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) cmaasedgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 cmaasctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 cmaasctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务cmaas</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务cmaas</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务cmaasctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务cmaasctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="syncTenant()">同步租户</button>
+      <a-button type="primary" @click="syncTenant()">同步租户</a-button>
 
     </form>
 
@@ -471,79 +471,79 @@
 
       <label for="translationSourceEnv">源环境：</label>
 
-      <select id="translationSourceEnv">
+      <a-select id="translationSourceEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</option>
+        <a-select-option value="fd_edge_app_uat_plt">uat环境福鼎配置工具 cmaaspltfduat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="translationTargetEnv">目标环境：</label>
 
-      <select id="translationTargetEnv">
+      <a-select id="translationTargetEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="platform_sit">edgesit配置工具pltsit</option>
+        <a-select-option value="platform_sit">edgesit配置工具pltsit</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="publishTranslation()">发布</button>
+      <a-button type="primary" @click="publishTranslation()">发布</a-button>
 
     </form>
 
@@ -563,25 +563,25 @@
 
     <label for="earthTargetEnv">目标环境：</label> 
 
-    <select id="earthTargetEnv"> 
+    <a-select id="earthTargetEnv" default-value="platform_dev"> 
 
-        <option value="platform_dev">开发配置工具pltdev</option> 
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option> 
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option> 
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option> 
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option> 
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option> 
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option> 
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option> 
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option> 
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option> 
 
-    </select><br> 
+    </a-select><br> 
 
-    <button type="button" onclick="earthRestart()">重启</button> 
+    <a-button type="primary"  @click="earthRestart()">重启</a-button> 
 
-    <button type="button" onclick="earthShutdown()">关闭</button> 
+    <a-button type="primary"  @click="earthShutdown()">关闭</a-button> 
 
-    <button type="button" onclick="earthStart()">启动</button> 
+    <a-button type="primary"  @click="earthStart()">启动</a-button> 
 
 </form> 
 
@@ -605,17 +605,17 @@
 
     <label for="qingCloudTargetEnv">目标环境：</label> 
 
-    <select id="qingCloudTargetEnv"> 
+    <a-select id="qingCloudTargetEnv"> 
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option> 
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option> 
 
-    </select><br> 
+    </a-select><br> 
 
-    <button type="button" onclick="qingCloudRestart()">重启</button> 
+    <a-button type="primary"  @click="qingCloudRestart()">重启</a-button> 
 
-    <button type="button" onclick="qingCloudShutdown()">关闭</button> 
+    <a-button type="primary"  @click="qingCloudShutdown()">关闭</a-button> 
 
-    <button type="button" onclick="qingCloudStart()">启动</button> 
+    <a-button type="primary"  @click="qingCloudStart()">启动</a-button> 
 
 </form> 
 
@@ -631,69 +631,69 @@
 
       <label for="dataSyncEnv">环境：</label>
 
-      <select id="dataSyncEnv">
+      <a-select id="dataSyncEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="center_app_dev">开发环境中心云微服务cmaasdev</option>
+        <a-select-option value="center_app_dev">开发环境中心云微服务cmaasdev</a-select-option>
 
-        <option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</option>
+        <a-select-option value="edge_app_dev">Hotfix开发环境边缘云微服务edgedev</a-select-option>
 
-        <option value="center_app_sit">测试环境中心云微服务cmaassit</option>
+        <a-select-option value="center_app_sit">测试环境中心云微服务cmaassit</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="center_app_uat">压测环境中心云微服务cmaasuat</option>
+        <a-select-option value="center_app_uat">压测环境中心云微服务cmaasuat</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</option>
+        <a-select-option value="main_edge_app_qing_cloud_uat">青云主业态新压测环境</a-select-option>
 
-        <option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</option>
+        <a-select-option value="ctc_edge_app_uat">压测环境ctc微服务 ctcedgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="center_app_prod">生产环境中心云微服务</option>
+        <a-select-option value="center_app_prod">生产环境中心云微服务</a-select-option>
 
-        <option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</option>
+        <a-select-option value="main_edge_app_prod">生产环境主业态边缘云微服务cmaasedge</a-select-option>
 
-        <option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</option>
+        <a-select-option value="ctc_edge_app_prod">生产环境ctc边缘云微服务ctcedge</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="dataType">数据：</label>
 
-      <select id="dataType">
+      <a-select id="dataType" default-value="error-message-data">
 
-        <option value="error-message-data">错误码</option>
+        <a-select-option value="error-message-data">错误码</a-select-option>
 
-        <option value="data-dictionary">数据字典</option>
+        <a-select-option value="data-dictionary">数据字典</a-select-option>
 
-        <!-- <option value="sys_permission">系统权限</option>-->
+        <!-- <a-select-option value="sys_permission">系统权限</a-select-option>-->
 
-      </select><br>
+      </a-select><br>
 
       <label for="tenant">租户：</label>
 
-      <select id="tenant">
+      <a-select id="tenant" default-value="primary">
 
-        <option value="DEFAULT">默认租户</option>
+        <a-select-option value="primary">默认租户</a-select-option>
 
-        <option value="2540">福鼎时代</option>
+        <a-select-option value="2540">福鼎时代</a-select-option>
 
-        <option value="2700">时代智能</option>
+        <a-select-option value="2700">时代智能</a-select-option>
 
-        <option value="3240">宜春智科</option>
+        <a-select-option value="3240">宜春智科</a-select-option>
 
-        <option value="CTC">时代智能CTC集团</option>
+        <a-select-option value="CTC">时代智能CTC集团</a-select-option>
 
-        <option value="CMAAS_CORP">宁德时代总部集团</option>
+        <a-select-option value="CMAAS_CORP">宁德时代总部集团</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="dataSync()">同步</button>
+      <a-button type="primary" @click="dataSync()">同步</a-button>
 
     </form>
 
@@ -709,25 +709,25 @@
 
       <label for="env">环境：</label>
 
-      <select id="env">
+      <a-select id="env" default-value="main_edge_app_uat">
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="direction">主备：</label>
 
-      <select id="direction">
+      <a-select id="direction" default-value="masterToSlave">
 
-        <option value="masterToSlave">主到备</option>
+        <a-select-option value="masterToSlave">主到备</a-select-option>
 
-        <option value="slaveToMaster">备到主</option>
+        <a-select-option value="slaveToMaster">备到主</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
-      <button type="button" onclick="graySync()">同步</button>
+      <a-button type="primary" @click="graySync()">同步</a-button>
 
     </form>
 
@@ -745,33 +745,33 @@
 
       <label for="incrementSourceEnv">源环境：</label>
 
-      <select id="incrementSourceEnv">
+      <a-select id="incrementSourceEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="incrementTargetEnv">目标环境：</label>
 
-      <select id="incrementTargetEnv">
+      <a-select id="incrementTargetEnv" default-value="edge_app_sit">
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <div>
 
@@ -791,7 +791,7 @@
 
       <input type="text" id="incrementToken"><br>
 
-      <button type="button" onclick="incrementSync()">发布</button>
+      <a-button type="primary" @click="incrementSync()">发布</a-button>
 
     </form>
 
@@ -805,33 +805,33 @@
 
       <label for="microSourceEnv">源环境：</label>
 
-      <select id="microSourceEnv">
+      <a-select id="microSourceEnv" default-value="platform_dev">
 
-        <option value="platform_dev">开发配置工具pltdev</option>
+        <a-select-option value="platform_dev">开发配置工具pltdev</a-select-option>
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <label for="microTargetEnv">目标环境：</label>
 
-      <select id="microTargetEnv">
+      <a-select id="microTargetEnv" default-value="edge_app_sit">
 
-        <option value="edge_app_sit">测试环境边缘云微服务edgesit</option>
+        <a-select-option value="edge_app_sit">测试环境边缘云微服务edgesit</a-select-option>
 
-        <option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</option>
+        <a-select-option value="main_edge_app_uat">压测环境边缘云微服务 (predev) edgeuat</a-select-option>
 
-        <option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</option>
+        <a-select-option value="fd_edge_app_uat">uat环境福鼎微服务 fdcmaasuat</a-select-option>
 
-        <option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</option>
+        <a-select-option value="fd_edge_app_prod">生产环境福鼎边缘云微服务cmaas-e-fd</a-select-option>
 
-      </select><br>
+      </a-select><br>
 
       <div>
 
@@ -845,7 +845,7 @@
 
       </div><br>
 
-      <button type="button" onclick="getMicroList()">发布</button>
+      <a-button type="primary" @click="getMicroList()">发布</a-button>
 
     </form>
 
@@ -857,9 +857,11 @@ defineProps({
   currentTab: String
 })
 import { ref } from 'vue';
+import { Button,Select } from 'ant-design-vue';
 
-const sourceEnv = ref('');
-const targetEnv = ref('');
+
+const sourceEnv = ref('开发配置工具pltdev');
+const targetEnv = ref('开发配置工具cmaaspltdev');
 const openTab = (tabId) => {
   currentTab.value = tabId;
 };
@@ -920,231 +922,4 @@ const downloadProjectMenu = () => {
 
 
 <style>
-body {
-
-  font-family: Arial, sans-serif;
-
-}
-
-
-
-.tabs {
-
-  overflow: hidden;
-
-  border-bottom: 1px solid #ccc;
-
-}
-
-
-
-.tablink {
-
-  background-color: #f2f2f2;
-
-  float: left;
-
-  border: none;
-
-  outline: none;
-
-  cursor: pointer;
-
-  padding: 14px 16px;
-
-  transition: background-color 0.3s;
-
-}
-
-
-
-.tablink:hover {
-
-  background-color: #ddd;
-
-}
-
-
-
-.tabcontent {
-
-  display: none;
-
-  padding: 20px;
-
-}
-
-
-
-form {
-
-  margin-bottom: 20px;
-
-}
-
-
-
-form label {
-
-  font-weight: bold;
-
-}
-
-
-
-form select,
-form input[type="text"] {
-
-  margin-bottom: 10px;
-
-  padding: 8px;
-
-  width: 200px;
-
-  border: 1px solid #ccc;
-
-}
-
-
-
-form button {
-
-  padding: 10px 20px;
-
-  background-color: #4CAF50;
-
-  color: white;
-
-  border: none;
-
-  cursor: pointer;
-
-  transition: background-color 0.3s;
-
-}
-
-
-
-form button:hover {
-
-  background-color: #45a049;
-
-}
-
-
-
-.alert-message {
-
-  padding: 20px;
-
-  margin-bottom: 20px;
-
-  background-color: #ffdddd;
-  /* 轻微的红色背景 */
-
-  border: 1px solid #ff0000;
-  /* 红色边框 */
-
-  color: #6b5900;
-  /* 文本颜色 */
-
-  font-size: 1.1rem;
-  /* 字体大小 */
-
-  font-weight: bold;
-  /* 加粗字体 */
-
-  text-align: center;
-  /* 文本居中 */
-
-}
-
-
-
-.alert-message strong {
-
-  color: #ff5733;
-  /* 强调文本颜色 */
-
-}
-
-
-
-/* styles.css */
-
-/* 成功消息动画 */
-
-@keyframes fadeInOut {
-
-  0% {
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-
-}
-
-
-
-.success-message {
-
-  display: none;
-
-  position: fixed;
-
-  top: 50%;
-
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  background-color: #4CAF50;
-
-  color: white;
-
-  padding: 15px 20px;
-
-  border-radius: 5px;
-
-  animation: fadeInOut 3s ease-in-out;
-
-}
-
-
-
-/* 错误消息动画 */
-
-.error-message {
-
-  display: none;
-
-  position: fixed;
-
-  top: 50%;
-
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  background-color: #f44336;
-
-  color: white;
-
-  padding: 15px 20px;
-
-  border-radius: 5px;
-
-  animation: fadeInOut 3s ease-in-out;
-
-}
 </style>
