@@ -16,7 +16,7 @@
       <a-card :bordered="false">
         <Button type="primary" v-for="tab in tabs" :key="tab.id"
           :class="{ 'tablink active': currentTab.value === tab.id }" @click="openTab(tab.id)">
-          {{ tab.name }}
+              {{ tab.name }}
         </Button>
         <div>
           <a-card :bordered="false" style="width: 500px">
@@ -28,24 +28,21 @@
   </div>
 
 
-  <!-- <div class="tabs">
-    <a-switch :checked="theme === 'dark'" checked-children="Dark" un-checked-children="Light" @change="changeTheme" />
-    <br />
-    <br />
-    <a-menu style="width: 256px" v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline"
+  <div class="tabs">
+    <a-menu style="width: 256px" v-model:openKeys="openKeys" v-model:selectedKeys="current" mode="horizontal"
       :theme="theme">
       <a-sub-menu key="sub1">
         <template #icon>
           <AppstoreOutlined />
         </template>
-        <template #title>Navigation Three</template> 
-           <Button type="primary" v-for="tab in tabs" :key="tab.id"
-            :class="{ 'tablink active': currentTab.value === tab.id }" @click="openTab(tab.id)">
-            {{ tab.name }}
-          </Button> 
+        <template #title>菜单</template>
+        <Button type="primary" v-for="tab in tabs" :key="tab.id"
+          :class="{ 'tablink active': currentTab.value === tab.id }" @click="openTab(tab.id)">
+          {{ tab.name }}
+        </Button>
       </a-sub-menu>
     </a-menu>
-  </div> -->
+  </div>
 
 
 </template>
@@ -73,32 +70,6 @@ function openTab(id) {
   currentTab.value = id;
 }
 
-
-
-// import { defineComponent, reactive, toRefs } from 'vue';
-// import {
-//   MailOutlined,
-//   CalendarOutlined,
-//   AppstoreOutlined,
-//   SettingOutlined,
-// } from '@ant-design/icons-vue';
-// const state = reactive({
-//   theme: 'dark',
-//   selectedKeys: ['1'],
-//   openKeys: ['sub1'],
-// });
-// const changeTheme = (checked) => {
-//   state.theme = checked ? 'dark' : 'light';
-// };
-
-
-
-// components: {
-//   MailOutlined,
-//     CalendarOutlined,
-//     AppstoreOutlined,
-//     SettingOutlined
-// }
 
 
 </script>

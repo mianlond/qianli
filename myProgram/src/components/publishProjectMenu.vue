@@ -1,5 +1,9 @@
 <template>
-  
+
+  <div v-if="isErrorVisible" class="error-message">
+    <a-alert message="Error" description="发布失败:Failed to fetch" type="error" show-icon />
+  </div>
+
   <div v-if="currentTab === 'firstImport'">
 
     <h3>第一次导入</h3>
@@ -547,6 +551,7 @@
 
     </form>
 
+
   </div>
 
 
@@ -850,6 +855,9 @@
     </form>
 
   </div>
+
+
+
 </template>
 
 <script setup>
@@ -857,21 +865,294 @@ defineProps({
   currentTab: String
 })
 import { ref } from 'vue';
-import { Button,Select } from 'ant-design-vue';
+import { Button, Select } from 'ant-design-vue';
 
 
-const sourceEnv = ref('开发配置工具pltdev');
-const targetEnv = ref('开发配置工具cmaaspltdev');
 const openTab = (tabId) => {
   currentTab.value = tabId;
 };
 
-const publishProjectMenu = () => {
-  console.log('发布项目菜单', sourceEnv.value, targetEnv.value);
+// function openTab(evt, tabName) {
 
-  //   var sourceEnv = document.getElementById("sourceEnv").value;
+// var i, tabcontent, tablinks;
 
-  // var targetEnv = document.getElementById("targetEnv").value;
+// tabcontent = document.getElementsByClassName("tabcontent");
+
+// for (i = 0; i < tabcontent.length; i++) {
+
+//     tabcontent[i].style.display = "none";
+
+// }
+
+// tablinks = document.getElementsByClassName("tablink");
+
+// for (i = 0; i < tablinks.length; i++) {
+
+//     tablinks[i].classList.remove("active");
+
+// }
+
+// ref(tabName).style.display = "block";
+
+// evt.currentTarget.classList.add("active");
+
+// }
+
+function qingCloudRestart() {
+
+  var env = ref("qingCloudTargetEnv");
+
+  var authToken = ref("token");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/qingcloud-operation/redeploy/${env}/withToken/${authToken}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，重启服务失败');
+
+      }
+
+      showSuccessMessage('重启服务成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('重启服务失败:' + error.message);
+
+    });
+
+}
+
+
+
+function qingCloudShutdown() {
+
+  var env = ref("qingCloudTargetEnv");
+
+  var authToken = ref("token");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/qingcloud-operation/shutdown/${env}/withToken/${authToken}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，关闭服务失败');
+
+      }
+
+      showSuccessMessage('关闭服务成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('关闭服务失败:' + error.message);
+
+    });
+
+}
+
+
+
+function qingCloudStart() {
+
+  var env = ref("qingCloudTargetEnv");
+
+  var authToken = ref("token");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/qingcloud-operation/startup/${env}/withToken/${authToken}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，重启服务失败');
+
+      }
+
+      showSuccessMessage('启动服务成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('启动服务失败:' + error.message);
+
+    });
+
+}
+
+
+
+function earthRestart() {
+
+  var env = ref("earthTargetEnv");
+
+  var authToken = 'eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmODUwZGYzNzk4ZjY2ODM1NGJiYTA0ZDA2NDQyMzQwODI4ZTQ5ZTQiLCJ1aWQiOjQyODc5NDYwLCJvcmdJZCI6ODgsInVzZXJDb2RlIjoiV2FuZ1dLMDMiLCJpYXQiOjE3MTkxMjE5NzJ9.CF8jD9PflZOQb9TeEvX5NBVXlvxxern53_aeQazFesFzcyC-tcroSS1scbjLvZsBTWMTqpuCfhp0bCr082I5_Q';
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/earth-operation/redeploy/${env}/withToken/${authToken}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，重启服务失败');
+
+      }
+
+      showSuccessMessage('重启服务成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('重启服务失败:' + error.message);
+
+    });
+
+}
+
+
+
+function publishTranslation() {
+
+  var sourceEnv = ref("translationSourceEnv");
+
+  var targetEnv = ref("translationTargetEnv");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/seed-data/restoreTranslation/${sourceEnv}/to/${targetEnv}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('发布成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('发布失败:' + error.message);
+
+    });
+
+}
+
+
+
+function publishProjectMenu() {
+
+  var sourceEnv = ref("sourceEnv");
+
+  var targetEnv = ref("targetEnv");
 
   // REST API 请求 
 
@@ -912,14 +1193,524 @@ const publishProjectMenu = () => {
       showErrorMessage('发布失败:' + error.message);
 
     });
-};
 
-const downloadProjectMenu = () => {
-  console.log('下载源环境seeddata', sourceEnv.value);
-  // 这里添加下载源环境seeddata的逻辑
-};
+}
+
+
+
+function syncTenant() {
+
+  var env = ref("syncEnv");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/seed-data/syncTenant/${env}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('同步成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('同步失败:' + error.message);
+
+    });
+
+}
+
+
+
+function firstImportMenu() {
+
+  var sourceEnv = ref("plt");
+
+  var targetEnv = ref("importEnv");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/seed-data/firstImport/to/${targetEnv}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('发布成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('发布失败:' + error.message);
+
+    });
+
+}
+
+
+
+function publishApp() {
+
+  var sourceEnv = ref("sourceEnvApp");
+
+  var targetEnv = ref("targetEnvApp");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/seed-data/restorePbcs/${sourceEnv}/to/${targetEnv}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('发布成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('发布失败:' + error.message);
+
+    });
+
+}
+
+
+
+function publishAllPbcs() {
+
+  var sourceEnv = ref("sourceEnvAll");
+
+  var targetEnv = ref("targetEnvAll");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/seed-data/restoreAllPbcs/${sourceEnv}/to/${targetEnv}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('发布成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('发布失败:' + error.message);
+
+    });
+
+}
+
+
+
+function publishPbc() {
+
+  var sourceEnv = ref("sourceEnvPbc");
+
+  var targetEnv = ref("targetEnvPbc");
+
+  var pbcName = ref("pbcName");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/seed-data/restorePbc/${sourceEnv}/to/${targetEnv}/withPbc/${pbcName}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('发布成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('发布失败:' + error.message);
+
+    });
+
+}
+
+
+
+function showSuccessMessage(message) {
+
+  var successMessage = ref("successMessage");
+
+  successMessage.textContent = message;
+
+  successMessage.style.display = "block";
+
+
+
+  // 设置定时器，在 3 秒后隐藏消息 
+
+  setTimeout(function () {
+
+    successMessage.style.display = "none";
+
+  }, 3000);
+
+}
+
+
+
+// 定义响应式数据属性
+const errorMessage = ref('');
+const isErrorVisible = ref(false);
+
+// 函数来显示错误消息
+function showErrorMessage(message) {
+  errorMessage.value = message;
+  isErrorVisible.value = true;
+
+  // 设置定时器，在 3 秒后隐藏消息
+  setTimeout(() => {
+    isErrorVisible.value = false;
+  }, 3000);
+}
+
+
+
+// 同样实现其他发布和下载功能的函数，如 publishApp(), downloadApp(), publishPbc(), downloadPbc() 
+
+
+
+
+
+function dataSync() {
+
+  var targetEnv = ref("dataSyncEnv");
+
+  var dataType = ref("dataType");
+
+  var tenant = ref("tenant");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/check-data/restoreData/${targetEnv}/by/${dataType}/for/${tenant}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('同步成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('同步失败:' + error.message);
+
+    });
+
+}
+
+
+
+function graySync() {
+
+  var env = ref("env");
+
+  var direction = ref("direction");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/gray/syncpbc/${env}/${direction}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*/*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('同步成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('同步失败:' + error.message);
+
+    });
+
+}
+
+function incrementSync() {
+
+  var form = ref("incrementForm");
+
+  var fromData = new FormData(form);
+
+  var incrementSourceEnv = ref("incrementSourceEnv");
+
+  var incrementTargetEnv = ref("incrementTargetEnv");
+
+  var incrementPbc = ref("incrementPbc");
+
+  var incrementToken = ref("incrementToken");
+
+  var incrementType = fromData.get("type");
+
+  // REST API 请求 
+
+  fetch(`http://localhost:8080/api/v1/gray/increment/${incrementSourceEnv}/${incrementTargetEnv}/${incrementPbc}/${incrementToken}/${incrementType}`, {
+
+    method: 'POST',
+
+    headers: {
+
+      'Accept': '*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      showSuccessMessage('同步成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('同步失败:' + error.message);
+
+    });
+
+}
+
+
+
+function getMicroList() {
+
+  // REST API 请求 
+
+  var env = "fd_edge_app_uat";
+
+  fetch(`http://localhost:8080/api/v1/gray/getMicroList/${env}`, {
+
+    method: 'GET',
+
+    headers: {
+
+      'Accept': '*',
+
+      'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+
+      'Accept-Encoding': 'gzip, deflate, br',
+
+      'Connection': 'keep-alive',
+
+      'Host': 'localhost'
+
+    }
+
+  })
+
+    .then(response => {
+
+      if (!response.ok) {
+
+        throw new Error('网络错误，发布失败');
+
+      }
+
+      alert(JSON.stringify(response))
+
+      //      response.data.forEach(item) =>{ 
+
+      //          alert(item) 
+
+      //      } 
+
+      showSuccessMessage('同步成功');
+
+    })
+
+    .catch(error => {
+
+      showErrorMessage('同步失败:' + error.message);
+
+    });
+
+}
+
+
+
+
 </script>
 
 
-<style>
-</style>
+<style></style>
