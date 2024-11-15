@@ -27,14 +27,13 @@
     </div>
   </div>
 
-
-  <div class="tabs">
+      <!-- v-model 可以在组件上使用以实现双向绑定
+       
+      -->
+  <!-- <div class="tabs">
     <a-menu style="width: 256px" v-model:openKeys="openKeys" v-model:selectedKeys="current" mode="horizontal"
       :theme="theme">
       <a-sub-menu key="sub1">
-        <template #icon>
-          <AppstoreOutlined />
-        </template>
         <template #title>菜单</template>
         <Button type="primary" v-for="tab in tabs" :key="tab.id"
           :class="{ 'tablink active': currentTab.value === tab.id }" @click="openTab(tab.id)">
@@ -42,7 +41,7 @@
         </Button>
       </a-sub-menu>
     </a-menu>
-  </div>
+  </div> -->
 
 
 </template>

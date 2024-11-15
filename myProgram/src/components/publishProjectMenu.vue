@@ -1,4 +1,6 @@
 <template>
+  <!-- 一个特殊的单文件组件（Single File Component，SFC）标签，用于定义组件的 HTML 模板
+   以.vue为后缀，包含三个部分：<template>、<script> 和 <style> -->
 
   <div v-if="isErrorVisible" class="error-message">
     <a-alert message="Error" description="发布失败:Failed to fetch" type="error" show-icon />
@@ -57,6 +59,7 @@
       </a-select><br>
 
       <a-button type="primary" @click="firstImportMenu()">发布</a-button>
+      <!-- 父组件可以通过 v-on (缩写为 @) 来监听事件,  同样，组件的事件监听器也支持 .once 修饰符 -->
 
     </form>
 
@@ -861,42 +864,16 @@
 </template>
 
 <script setup>
-defineProps({
+defineProps({ // 传递 prop  https://cn.vuejs.org/guide/components/props.html
   currentTab: String
 })
 import { ref } from 'vue';
-import { Button, Select } from 'ant-design-vue';
+import { Button, Select } from 'ant-design-vue'; // 局部声明
 
 
 const openTab = (tabId) => {
   currentTab.value = tabId;
 };
-
-// function openTab(evt, tabName) {
-
-// var i, tabcontent, tablinks;
-
-// tabcontent = document.getElementsByClassName("tabcontent");
-
-// for (i = 0; i < tabcontent.length; i++) {
-
-//     tabcontent[i].style.display = "none";
-
-// }
-
-// tablinks = document.getElementsByClassName("tablink");
-
-// for (i = 0; i < tablinks.length; i++) {
-
-//     tablinks[i].classList.remove("active");
-
-// }
-
-// ref(tabName).style.display = "block";
-
-// evt.currentTarget.classList.add("active");
-
-// }
 
 function qingCloudRestart() {
 
