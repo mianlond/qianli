@@ -2,6 +2,12 @@
   <!-- 一个特殊的单文件组件（Single File Component，SFC）标签，用于定义组件的 HTML 模板
    以.vue为后缀，包含三个部分：<template>、<script> 和 <style> -->
 
+
+  <button class="fancy-btn">
+    <slot></slot> <!-- slot outlet  插槽出口 
+    标示了父元素提供的插槽内容 (slot content) 将在哪里被渲染-->
+  </button>
+
   <div v-if="isErrorVisible" class="error-message">
     <a-alert message="Error" description="发布失败:Failed to fetch" type="error" show-icon />
   </div>
@@ -1690,4 +1696,15 @@ function getMicroList() {
 </script>
 
 
-<style></style>
+<style>
+
+.fancy-btn {
+  color: #fff;
+  background: linear-gradient(315deg, #42d392 25%, #647eff);
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>

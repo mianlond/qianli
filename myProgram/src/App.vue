@@ -1,5 +1,7 @@
 <template>
-
+  <publishProjectMenu>
+    Click me <!-- slot content 插槽 -->
+ 	</publishProjectMenu>
   <div>
     <h1>CMaaS 应用发布系统</h1>
     <div class="alert-message">
